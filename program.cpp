@@ -1,5 +1,4 @@
 #include <iostream>
-#include <ncurses.h>
 #include <memory>
 
 using std::make_shared;
