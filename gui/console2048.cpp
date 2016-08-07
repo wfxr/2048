@@ -14,7 +14,7 @@
 #else
 #define UNIX
 #include <ncurses.h>
-#defint print printw
+#define print printw
 #endif
 
 
@@ -47,24 +47,24 @@ Direction Console2048::get_input_direction()
 void Console2048::clear_screen() {
 #ifdef WIN32
     system("cls");
-#elif UNIX
+#else
     clear();
 #endif
 }
 
 void Console2048::console_prepare() {
-#ifdef UNIX
-    initscr();  // Start curse mode
-    noecho();   // Don't echo while we do getch
-    curs_set(0);    // Hide cursor
-    keypad(stdscr, TRUE);   // To get arrow key
-#elif WIN32
+#ifdef WIN32
     // Hide cursor
     static auto output = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO cursor;
     cursor.bVisible = FALSE;
     cursor.dwSize = 1;
     SetConsoleCursorInfo(output, &cursor);
+#else
+    initscr();  // Start curse mode
+    noecho();   // Don't echo while we do getch
+    curs_set(0);    // Hide cursor
+    keypad(stdscr, TRUE);   // To get arrow key
 #endif
 
 }
@@ -120,7 +120,7 @@ void Console2048::print_board() const
         }
         print("\n\n\n");
     }
-#ifndef WIN32
+#ifdef UNIX
     refresh();
 #endif
 }

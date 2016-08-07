@@ -1,5 +1,6 @@
 #include "board.h"
 #include <random>
+#include <algorithm>
 
 using std::count;
 using std::swap;

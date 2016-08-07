@@ -1,6 +1,7 @@
+#pragma once
+
 #include <iostream>
 #include <memory>
-
 
 #include "core/observer.h"
 #include "core/game.h"

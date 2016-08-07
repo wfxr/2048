@@ -21,6 +21,5 @@ public:
     }
 private:
     std::function<Direction(void)> _get_direction;
-    int _score = 0;
     Board _board;
 };
