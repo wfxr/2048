@@ -71,12 +71,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir)\..;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(ProjectDir)\..;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -146,6 +148,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\core\board.h" />
+    <ClInclude Include="..\core\direction.h" />
+    <ClInclude Include="..\core\game.h" />
+    <ClInclude Include="..\core\observer.h" />
+    <ClInclude Include="..\core\subject.h" />
+    <ClInclude Include="..\gui\console2048.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\core\board.cpp" />
+    <ClCompile Include="..\core\game.cpp" />
+    <ClCompile Include="..\core\subject.cpp" />
+    <ClCompile Include="..\gui\console2048.cpp" />
+    <ClCompile Include="..\gui\program.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
