@@ -6,23 +6,24 @@ void Game::start()
 {
     _board.initialize();
     notify();
+}
 
-    while (!game_over()) {
-        switch (_get_direction()) {
-        case Direction::Up:
-            _board.move_up();
-            break;
-        case Direction::Down:
-            _board.move_down();
-            break;
-        case Direction::Left:
-            _board.move_left();
-            break;
-        case Direction::Right:
-            _board.move_right();
-            break;
-        }
+void Game::move_up() {
+    _board.move_up();
+    notify();
+}
 
-        notify();
-    }
+void Game::move_down() {
+    _board.move_down();
+    notify();
+}
+
+void Game::move_left() {
+    _board.move_left();
+    notify();
+}
+
+void Game::move_right() {
+    _board.move_right();
+    notify();
 }

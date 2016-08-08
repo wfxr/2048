@@ -148,19 +148,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\console\console2048.h" />
     <ClInclude Include="..\core\board.h" />
     <ClInclude Include="..\core\direction.h" />
     <ClInclude Include="..\core\game.h" />
     <ClInclude Include="..\core\observer.h" />
     <ClInclude Include="..\core\subject.h" />
-    <ClInclude Include="..\gui\console2048.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\console\console2048.cpp" />
+    <ClCompile Include="..\console\program.cpp" />
     <ClCompile Include="..\core\board.cpp" />
     <ClCompile Include="..\core\game.cpp" />
     <ClCompile Include="..\core\subject.cpp" />
-    <ClCompile Include="..\gui\console2048.cpp" />
-    <ClCompile Include="..\gui\program.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

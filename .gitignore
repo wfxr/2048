@@ -243,4 +243,10 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+# vim plugin YCM files
 .ycm_extra_conf.py*
+
+# qt files
+gui/*.pro.user
+gui/build-*

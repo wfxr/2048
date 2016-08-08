@@ -18,32 +18,6 @@
 #endif
 
 
-Direction Console2048::get_input_direction()
-{
-    for (;;) {
-        switch (getch()) {
-        case KEY_UP:
-        case 'w':
-        case 'k':
-            return Direction::Up;
-        case KEY_DOWN:
-        case 's':
-        case 'j':
-            return Direction::Down;
-        case KEY_LEFT:
-        case 'a':
-        case 'h':
-            return Direction::Left;
-        case KEY_RIGHT:
-        case 'd':
-        case 'l':
-            return Direction::Right;
-        default:
-            break;
-        }
-    }
-}
-
 void Console2048::clear_screen() {
 #ifdef WIN32
     system("cls");
@@ -100,10 +74,36 @@ void Console2048::print_title()
 void Console2048::start()
 {
     _game.subscribe(get_ptr());
-    _game.set_input_source(get_input_direction);
 
     console_prepare();
     _game.start();
+
+    while (!_game.game_over()) {
+        switch (getch()) {
+        case KEY_UP:
+        case 'w':
+        case 'k':
+            _game.move_up();
+            break;
+        case KEY_DOWN:
+        case 's':
+        case 'j':
+            _game.move_down();
+            break;
+        case KEY_LEFT:
+        case 'a':
+        case 'h':
+            _game.move_left();
+            break;
+        case KEY_RIGHT:
+        case 'd':
+        case 'l':
+            _game.move_right();
+            break;
+        default:
+            break;
+        }
+    }
 }
 
 void Console2048::print_board() const

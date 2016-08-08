@@ -23,8 +23,6 @@ public:
 
     std::shared_ptr<Console2048> get_ptr();
 
-    static Direction get_input_direction();
-
 private:
     static void clear_screen();
     static void console_prepare();

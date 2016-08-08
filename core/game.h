@@ -16,10 +16,10 @@ public:
 
     bool game_over() const { return !_board.can_move(); }
 
-    void set_input_source(std::function<Direction(void)> source) {
-        _get_direction = source;
-    }
+    void move_up();
+    void move_down();
+    void move_left();
+    void move_right();
 private:
-    std::function<Direction(void)> _get_direction;
     Board _board;
 };

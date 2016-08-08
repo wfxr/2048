@@ -16,14 +16,14 @@
     <Filter Include="Header Files\core">
       <UniqueIdentifier>{a19e7250-cc0e-41f5-b3d2-dbdd75d8f6d1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\gui">
-      <UniqueIdentifier>{2315a2b6-ed74-4ae8-b49a-5fda64a391be}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\core">
       <UniqueIdentifier>{13db225e-b9e0-4ed4-91d8-66f8210d8b87}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\gui">
+    <Filter Include="Source Files\console">
       <UniqueIdentifier>{d8ef3b5e-eaea-4c26-9e29-bd4c181c3fb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\console">
+      <UniqueIdentifier>{23fe9cdb-6f34-4687-97b2-52ddb2d50376}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -39,28 +39,28 @@
     <ClInclude Include="..\core\subject.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\gui\console2048.h">
-      <Filter>Header Files\gui</Filter>
-    </ClInclude>
     <ClInclude Include="..\core\direction.h">
       <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\console\console2048.h">
+      <Filter>Header Files\console</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\core\subject.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\gui\console2048.cpp">
-      <Filter>Source Files\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gui\program.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\core\board.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
     <ClCompile Include="..\core\game.cpp">
       <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\console\program.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\console\console2048.cpp">
+      <Filter>Source Files\console</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
