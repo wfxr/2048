@@ -6,5 +6,5 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lncurses")
 
 include_directories("${CMAKE_SOURCE_DIR}")
 
-add_executable (game gui/program.cpp gui/console2048.cpp core/board.cpp core/subject.cpp
+add_executable (game console/program.cpp console/console2048.cpp core/board.cpp core/subject.cpp
     core/game.cpp)
