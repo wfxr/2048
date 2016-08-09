@@ -58,14 +58,15 @@ void Console2048::update()
 {
     clear_screen();
     print_title();
+    print_score();
     print_board();
 }
 
-void Console2048::print_title()
+void Console2048::print_title() const
 {
     print("\n");
-    print("             2048\n");
-    print("            ======\n\n");
+    print("%17d\n", 2048);
+    print("%18s\n\n", "======");
 #ifdef UNIX
     refresh();
 #endif
@@ -76,7 +77,7 @@ void Console2048::start()
     _game.subscribe(get_ptr());
 
     console_prepare();
-    _game.start();
+    _game.reset();
 
     while (!_game.game_over()) {
         switch (getch()) {
@@ -120,6 +121,14 @@ void Console2048::print_board() const
         }
         print("\n\n\n");
     }
+#ifdef UNIX
+    refresh();
+#endif
+}
+
+void Console2048::print_score() const {
+    print("%20s", "Score:");
+    print("%6d\n\n", _game.score());
 #ifdef UNIX
     refresh();
 #endif

@@ -1,29 +1,28 @@
 #include "game.h"
+#include "direction.h"
 
-
-
-void Game::start()
+void Game::reset()
 {
-    _board.initialize();
+    _board.reset();
     notify();
 }
 
 void Game::move_up() {
-    _board.move_up();
+    _score += _board.move(Direction::Up);
     notify();
 }
 
 void Game::move_down() {
-    _board.move_down();
+    _score += _board.move(Direction::Down);
     notify();
 }
 
 void Game::move_left() {
-    _board.move_left();
+    _score += _board.move(Direction::Left);
     notify();
 }
 
 void Game::move_right() {
-    _board.move_right();
+    _score += _board.move(Direction::Right);
     notify();
 }

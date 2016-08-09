@@ -13,13 +13,15 @@ public:
 
     ~Console2048();
 
-    void update() override;
-
-    static void print_title();
-
     void start();
 
+    void update() override;
+
+    void print_title() const;
+
     void print_board() const;
+
+    void print_score() const;
 
     std::shared_ptr<Console2048> get_ptr();
 

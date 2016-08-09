@@ -1,26 +1,30 @@
 #include "board.h"
+#include "direction.h"
+
 #include <random>
 #include <algorithm>
 
 using std::count;
 using std::swap;
+using std::pair;
+using std::make_pair;
 
-void Board::initialize()
-{
+void Board::reset() {
+    for (auto& row : _board)
+        for (auto& cell : row)
+            cell = 0;
     random_arise();
     random_arise();
 }
 
-int Board::blank_count() const
-{
+int Board::blank_count() const {
     auto num = 0;
     for (const auto &row : _board)
         num += count(row.begin(), row.end(), 0);
     return num;
 }
 
-void Board::random_arise()
-{
+void Board::random_arise() {
     auto blanksCount = blank_count();
     if (blanksCount == 0) return;
 
@@ -34,102 +38,122 @@ void Board::random_arise()
             }
 }
 
-void Board::move_left()
-{
+pair<bool, int> Board::move_left(int i, int j) {
     auto moved = false;
-    for (auto i = 0; i < _rows; ++i)
-        for (auto j = 0; j < _cols; ++j)
-            if (_board[i][j]) moved |= move_left(i, j);
-    if (moved) random_arise();
-}
-
-bool Board::move_left(int i, int j)
-{
-    auto moved = false;
+    auto score = 0;
     for (; j > 0 && _board[i][j - 1] == 0; --j) {
         swap(_board[i][j], _board[i][j - 1]);
         moved = true;
     }
+
     if (j > 0 && _board[i][j - 1] == _board[i][j]) {
-        merge(_board[i][j], _board[i][j - 1]);
+        score = merge(_board[i][j - 1], _board[i][j]);
         moved = true;
     }
-    return moved;
+
+    return make_pair(moved, score);
 }
 
-void Board::move_right()
-{
+pair<bool, int> Board::move_right(int i, int j) {
     auto moved = false;
-    for (auto i = 0; i < _rows; ++i)
-        for (auto j = _cols - 1; j >= 0; --j)
-            if (_board[i][j]) moved |= move_right(i, j);
-    if (moved) random_arise();
-}
-
-bool Board::move_right(int i, int j)
-{
-    auto moved = false;
+    auto score = 0;
     for (; j < _cols - 1 && _board[i][j + 1] == 0; ++j) {
         swap(_board[i][j], _board[i][j + 1]);
         moved = true;
     }
+
     if (j < _cols - 1 && _board[i][j + 1] == _board[i][j]) {
-        merge(_board[i][j], _board[i][j + 1]);
+        score = merge(_board[i][j + 1], _board[i][j]);
         moved = true;
     }
-    return moved;
+
+    return make_pair(moved, score);
 }
 
-void Board::move_up()
-{
+pair<bool, int> Board::move_up(int i, int j) {
     auto moved = false;
-    for (auto i = 0; i < _rows; ++i)
-        for (auto j = 0; j < _cols; ++j)
-            if (_board[i][j]) moved |= move_up(i, j);
-    if (moved) random_arise();
-}
-
-bool Board::move_up(int i, int j)
-{
-    auto moved = false;
+    auto score = 0;
     for (; i > 0 && _board[i - 1][j] == 0; --i) {
         swap(_board[i][j], _board[i - 1][j]);
         moved = true;
     }
+
     if (i > 0 && _board[i - 1][j] == _board[i][j]) {
-        merge(_board[i][j], _board[i - 1][j]);
+        score = merge(_board[i - 1][j], _board[i][j]);
         moved = true;
     }
-    return moved;
+
+    return make_pair(moved, score);
 }
 
-void Board::move_down()
-{
+pair<bool, int> Board::move_down(int i, int j) {
     auto moved = false;
-    for (auto i = _rows - 1; i >= 0; --i)
-        for (auto j = 0; j < _cols; ++j)
-            if (_board[i][j]) moved |= move_down(i, j);
-    if (moved) random_arise();
-}
-
-bool Board::move_down(int i, int j)
-{
-    auto moved = false;
+    auto score = 0;
     for (; i < _rows - 1 && _board[i + 1][j] == 0; ++i) {
         swap(_board[i][j], _board[i + 1][j]);
         moved = true;
     }
+
     if (i < _rows - 1 && _board[i + 1][j] == _board[i][j]) {
-        merge(_board[i][j], _board[i + 1][j]);
+        score = merge(_board[i + 1][j], _board[i][j]);
         moved = true;
     }
-    return moved;
+
+    return make_pair(moved, score);
 }
 
-void Board::merge(int &src, int &dest)
+int Board::move(Direction direction) {
+    auto moved = false;
+    auto score = 0;
+    switch (direction) {
+        case Direction::Up:
+            for (auto row = 0; row < _rows; ++row)
+                for (auto col = 0; col < _cols; ++col)
+                    if (_board[row][col]) {
+                        auto result = move_up(row, col);
+                        moved |= result.first;
+                        score += result.second;
+                    }
+            break;
+        case Direction::Down:
+            for (auto row = _rows - 1; row >= 0; --row)
+                for (auto col = 0; col < _cols; ++col)
+                    if (_board[row][col]) {
+                        auto result = move_down(row, col);
+                        moved |= result.first;
+                        score += result.second;
+                    }
+            break;
+        case Direction::Left:
+            for (auto row = 0; row < _rows; ++row)
+                for (auto col = 0; col < _cols; ++col)
+                    if (_board[row][col]) {
+                        auto result = move_left(row, col);
+                        moved |= result.first;
+                        score += result.second;
+                    }
+            break;
+        case Direction::Right:
+            for (auto row = 0; row < _rows; ++row)
+                for (auto col = _cols - 1; col >= 0; --col)
+                    if (_board[row][col]) {
+                        auto result = move_right(row, col);
+                        moved |= result.first;
+                        score += result.second;
+                    }
+            break;
+        default: break;
+    }
+
+    if (moved) random_arise();
+    return score;
+}
+
+int& Board::merge(int & to, int & from)
 {
-    dest += src;
-    src = 0;
+    to += from;
+    from = 0;
+    return to;
 }
 
 int Board::random(int min, int max)

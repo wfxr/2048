@@ -1,6 +1,10 @@
 #pragma once
 
 #include <vector>
+#include <utility>
+
+
+enum class Direction;
 
 class Board {
 public:
@@ -13,24 +17,21 @@ public:
     int rows() const { return _rows; }
     int cols() const { return _cols; }
 
-    void initialize();
+    void reset();
     void random_arise();
 
-    void move_left();
-    void move_right();
-    void move_up();
-    void move_down();
+    int move(Direction direction);
 
     int blank_count() const;
     bool can_move() const;
 
 private:
-    bool move_left(int i, int j);
-    bool move_right(int i, int j);
-    bool move_up(int i, int j);
-    bool move_down(int i, int j);
+    std::pair<bool, int> move_left(int i, int j);
+    std::pair<bool, int> move_right(int i, int j);
+    std::pair<bool, int> move_up(int i, int j);
+    std::pair<bool, int> move_down(int i, int j);
 
-    static void merge(int &src, int &dest);
+    static int& merge(int & to, int & from);
     static int random(int min, int max);
 
     int _rows;

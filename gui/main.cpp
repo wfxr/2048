@@ -8,8 +8,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     auto game = make_shared<GUI2048>(4, 4);
-    game->show();
-    game->start();
+    game->run();
 
     return a.exec();
 }
