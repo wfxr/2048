@@ -72,12 +72,16 @@ void Console2048::print_title() const
 #endif
 }
 
+std::shared_ptr<Console2048> Console2048::create(int rows, int cols) {
+    return std::shared_ptr<Console2048>(new Console2048(4, 4));
+}
+
 void Console2048::start()
 {
-    _game.subscribe(get_ptr());
+    _game.subscribe(shared_from_this());
+    _game.reset();
 
     console_prepare();
-    _game.reset();
 
     while (!_game.game_over()) {
         switch (getch()) {
@@ -132,9 +136,4 @@ void Console2048::print_score() const {
 #ifdef UNIX
     refresh();
 #endif
-}
-
-std::shared_ptr<Console2048> Console2048::get_ptr()
-{
-    return shared_from_this();
 }
