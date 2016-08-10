@@ -21,6 +21,7 @@ class GUI2048 final : public QMainWindow, public Observer, public std::enable_sh
 public:
     ~GUI2048();
     void run();
+    void quit();
     static std::shared_ptr<GUI2048> create(int rows, int cols, QWidget *parent = 0);
 
 private:

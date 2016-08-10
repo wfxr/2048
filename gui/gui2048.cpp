@@ -63,6 +63,11 @@ void GUI2048::run() {
     this->show();
 }
 
+void GUI2048::quit() {
+    _game.unsubscribe(shared_from_this());
+    this->close();
+}
+
 void GUI2048::update() {
     updateTiles();
     updateScore();
@@ -74,6 +79,8 @@ void GUI2048::update() {
         msgBox.setDefaultButton(QMessageBox::Ok);
         if (msgBox.exec() == QMessageBox::Ok)
             _game.reset();
+        else
+            this->close();
     }
 }
 
@@ -101,6 +108,9 @@ void GUI2048::keyPressEvent(QKeyEvent *event)
         break;
     case Qt::Key_Down:
         _game.move_down();
+        break;
+    case Qt::Key_Escape:
+        this->quit();
         break;
     }
 }
