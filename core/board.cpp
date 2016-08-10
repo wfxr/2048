@@ -167,12 +167,12 @@ int Board::random(int min, int max)
 bool Board::can_move() const
 {
     if (blank_count()) return true;
-    for (auto i = 0; i < _rows - 1; ++i)
-        for (auto j = 0; j < _cols - 2; ++j)
+    for (auto i = 0; i < _rows; ++i)
+        for (auto j = 0; j < _cols - 1; ++j)
             if (_board[i][j] == _board[i][j + 1]) return true;
 
-    for (auto j = 0; j < _cols - 1; ++j)
-        for (auto i = 0; i < _rows - 2; ++i)
+    for (auto j = 0; j < _cols; ++j)
+        for (auto i = 0; i < _rows - 1; ++i)
             if (_board[i][j] == _board[i + 1][j]) return true;
     return false;
 }
