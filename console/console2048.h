@@ -3,11 +3,11 @@
 #include <iostream>
 #include <memory>
 
-#include "core/observer.h"
 #include "core/game.h"
+#include "core/observer.h"
 
 class Console2048 final : public Observer,
-                    public std::enable_shared_from_this<Console2048> {
+                          public std::enable_shared_from_this<Console2048> {
 public:
     static std::shared_ptr<Console2048> create(int rows, int cols);
 
@@ -22,6 +22,7 @@ public:
     void print_score() const;
 
     ~Console2048();
+
 private:
     Console2048(int rows, int cols);
 

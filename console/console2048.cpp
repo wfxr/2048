@@ -41,7 +41,9 @@ void Console2048::console_prepare() {
 #endif
 }
 
-Console2048::Console2048(int rows, int cols) : _game(rows, cols) {}
+Console2048::Console2048(int rows, int cols) : _game(rows, cols) {
+    console_prepare();
+}
 
 Console2048::~Console2048() {
 #ifdef UNIX
@@ -58,8 +60,8 @@ void Console2048::update() {
 
 void Console2048::print_title() const {
     print("\n");
-    print("%17d\n", 2048);
-    print("%18s\n\n", "======");
+    print("%19d\n", 2048);
+    print("%21s\n\n", "========");
 #ifdef UNIX
     refresh();
 #endif
@@ -70,9 +72,6 @@ std::shared_ptr<Console2048> Console2048::create(int rows, int cols) {
 }
 
 void Console2048::start() {
-    console_prepare();
-
-    // TODO: 解决同一个对象可能重复订阅的问题
     _game.subscribe(shared_from_this());
     _game.reset();
 
@@ -98,6 +97,9 @@ void Console2048::start() {
         case 'l':
             _game.move_right();
             break;
+        case 'q':
+            _game.unsubscribe(shared_from_this());
+            return;
         default:
             break;
         }
@@ -110,10 +112,9 @@ void Console2048::print_board() const {
         for (auto j = 0; j < board.cols(); ++j) {
             auto num = board.get(i, j);
             if (num == 0)
-                print("    .");
+                print("%7s", ".");
             else
-                print("%5d", num);
-            print("  ");
+                print("%7d", num);
         }
         print("\n\n\n");
     }
@@ -123,7 +124,7 @@ void Console2048::print_board() const {
 }
 
 void Console2048::print_score() const {
-    print("%20s", "Score:");
+    print("%22s", "Score:");
     print("%6d\n\n", _game.score());
 #ifdef UNIX
     refresh();
