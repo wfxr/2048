@@ -7,14 +7,14 @@ using std::string;
 
 QTile::QTile(int num) {
     setAlignment(Qt::AlignCenter);
-    setNum(num);
+    setValue(num);
 }
 
-void QTile::setNum(int num) {
+void QTile::setValue(int num) {
     if (num == 0)
         setText("");
     else
-        setText(QString::number(num));
+        setNum(num);
 
     switch (num) {
     case 0:

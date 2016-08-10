@@ -15,9 +15,9 @@ class QKeyEvent;
 
 class GUI2048 : public QMainWindow, public Observer, public std::enable_shared_from_this<GUI2048> {
     Q_OBJECT
-    QWidget *_centralWidget;
-    QLabel *_score;
     QLabel *_title;
+    QLabel *_score;
+    QWidget *_centralWidget;
 public:
     GUI2048(int rows, int cols, QWidget *parent = 0);
     ~GUI2048();
@@ -28,8 +28,9 @@ private:
     void update() override;
     void updateTiles();
     void updateScore();
-    std::vector<std::vector<QTile*>> _gui_board;
+
     Game _game;
+    std::vector<std::vector<QTile*>> _gui_board;
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 };

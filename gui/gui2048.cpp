@@ -46,8 +46,7 @@ GUI2048::GUI2048(int rows, int cols, QWidget *parent)
     this->resize(500, 500 + _title->height() + _score->height());
 }
 
-GUI2048::~GUI2048()
-{
+GUI2048::~GUI2048() {
     for (int i = 0; i < 4; ++i)
         for (int j = 0; j < 4; ++j)
             delete _gui_board[i][j];
@@ -76,7 +75,7 @@ void GUI2048::update() {
 void GUI2048::updateTiles() {
     for (int i = 0; i < _gui_board.size(); ++i)
         for (int j = 0; j < _gui_board[i].size(); ++j)
-            _gui_board[i][j]->setNum(_game.get_board().get(i, j));
+            _gui_board[i][j]->setValue(_game.get_board().get(i, j));
 }
 
 void GUI2048::updateScore() {
