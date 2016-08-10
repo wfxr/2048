@@ -9,6 +9,11 @@
 #include "qtile.h"
 
 using std::vector;
+using std::shared_ptr;
+
+shared_ptr<GUI2048> GUI2048::create(int rows, int cols, QWidget *parent) {
+    return shared_ptr<GUI2048>(new GUI2048(rows, cols, parent));
+}
 
 GUI2048::GUI2048(int rows, int cols, QWidget *parent)
     : QMainWindow(parent), _game(rows, cols), _gui_board(rows, vector<QTile*>(cols)) {
@@ -53,9 +58,9 @@ GUI2048::~GUI2048() {
 }
 
 void GUI2048::run() {
-    this->show();
     _game.subscribe(shared_from_this());
     _game.reset();
+    this->show();
 }
 
 void GUI2048::update() {
