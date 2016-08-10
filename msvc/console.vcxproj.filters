@@ -56,11 +56,11 @@
     <ClCompile Include="..\core\game.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\console\program.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\console\console2048.cpp">
       <Filter>Source Files\console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\console\main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
