@@ -1,9 +1,3 @@
-#include <iostream>
-#include <memory>
-#include <ncurses.h>
-
-using std::make_shared;
-
 #include "console2048.h"
 
 int main() {
