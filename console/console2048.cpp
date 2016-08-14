@@ -17,7 +17,6 @@
 #define print printw
 #endif
 
-
 void Console2048::clear_screen() {
 #ifdef WIN32
     system("cls");
@@ -35,53 +34,46 @@ void Console2048::console_prepare() {
     cursor.dwSize = 1;
     SetConsoleCursorInfo(output, &cursor);
 #else
-    initscr();  // Start curse mode
-    noecho();   // Don't echo while we do getch
-    curs_set(0);    // Hide cursor
-    keypad(stdscr, TRUE);   // To get arrow key
+    initscr();            // Start curse mode
+    noecho();             // Don't echo while we do getch
+    curs_set(0);          // Hide cursor
+    keypad(stdscr, TRUE); // To get arrow key
 #endif
-
 }
 
 Console2048::Console2048(int rows, int cols) : _game(rows, cols) {
-
+    console_prepare();
 }
 
-Console2048::~Console2048()
-{
+Console2048::~Console2048() {
 #ifdef UNIX
-    endwin();   // End curses mode
+    endwin(); // End curses mode
 #endif
 }
 
-void Console2048::update()
-{
+void Console2048::update() {
     clear_screen();
     print_title();
     print_score();
     print_board();
 }
 
-void Console2048::print_title() const
-{
+void Console2048::print_title() const {
     print("\n");
-    print("%17d\n", 2048);
-    print("%18s\n\n", "======");
+    print("%19d\n", 2048);
+    print("%21s\n\n", "========");
 #ifdef UNIX
     refresh();
 #endif
 }
 
 std::shared_ptr<Console2048> Console2048::create(int rows, int cols) {
-    return std::shared_ptr<Console2048>(new Console2048(4, 4));
+    return std::shared_ptr<Console2048>(new Console2048(rows, cols));
 }
 
-void Console2048::start()
-{
+void Console2048::start() {
     _game.subscribe(shared_from_this());
     _game.reset();
-
-    console_prepare();
 
     while (!_game.game_over()) {
         switch (getch()) {
@@ -105,23 +97,24 @@ void Console2048::start()
         case 'l':
             _game.move_right();
             break;
+        case 'q':
+            _game.unsubscribe(shared_from_this());
+            return;
         default:
             break;
         }
     }
 }
 
-void Console2048::print_board() const
-{
+void Console2048::print_board() const {
     auto board = _game.get_board();
     for (auto i = 0; i < board.rows(); ++i) {
         for (auto j = 0; j < board.cols(); ++j) {
             auto num = board.get(i, j);
             if (num == 0)
-                print("    .");
+                print("%7s", ".");
             else
-                print("%5d", num);
-            print("  ");
+                print("%7d", num);
         }
         print("\n\n\n");
     }
@@ -131,7 +124,7 @@ void Console2048::print_board() const
 }
 
 void Console2048::print_score() const {
-    print("%20s", "Score:");
+    print("%22s", "Score:");
     print("%6d\n\n", _game.score());
 #ifdef UNIX
     refresh();

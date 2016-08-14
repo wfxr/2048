@@ -9,6 +9,11 @@
 #include "qtile.h"
 
 using std::vector;
+using std::shared_ptr;
+
+shared_ptr<GUI2048> GUI2048::create(int rows, int cols, QWidget *parent) {
+    return shared_ptr<GUI2048>(new GUI2048(rows, cols, parent));
+}
 
 GUI2048::GUI2048(int rows, int cols, QWidget *parent)
     : QMainWindow(parent), _game(rows, cols), _gui_board(rows, vector<QTile*>(cols)) {
@@ -53,9 +58,14 @@ GUI2048::~GUI2048() {
 }
 
 void GUI2048::run() {
-    this->show();
     _game.subscribe(shared_from_this());
     _game.reset();
+    this->show();
+}
+
+void GUI2048::quit() {
+    _game.unsubscribe(shared_from_this());
+    this->close();
 }
 
 void GUI2048::update() {
@@ -69,6 +79,8 @@ void GUI2048::update() {
         msgBox.setDefaultButton(QMessageBox::Ok);
         if (msgBox.exec() == QMessageBox::Ok)
             _game.reset();
+        else
+            this->close();
     }
 }
 
@@ -96,6 +108,9 @@ void GUI2048::keyPressEvent(QKeyEvent *event)
         break;
     case Qt::Key_Down:
         _game.move_down();
+        break;
+    case Qt::Key_Escape:
+        this->quit();
         break;
     }
 }
