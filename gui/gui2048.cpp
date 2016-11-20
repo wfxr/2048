@@ -52,8 +52,8 @@ GUI2048::GUI2048(int rows, int cols, QWidget *parent)
 }
 
 GUI2048::~GUI2048() {
-    for (int i = 0; i < 4; ++i)
-        for (int j = 0; j < 4; ++j)
+    for (int i = 0; i < _gui_board.size(); ++i)
+        for (int j = 0; j < _gui_board[i].size(); ++j)
             delete _gui_board[i][j];
 }
 
