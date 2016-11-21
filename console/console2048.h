@@ -1,10 +1,9 @@
 #pragma once
 
-#include <iostream>
 #include <memory>
 
-#include "core/game.h"
-#include "core/observer.h"
+#include "../core/game.h"
+#include "../core/observer.h"
 
 class Console2048 final : public Observer,
                           public std::enable_shared_from_this<Console2048> {
